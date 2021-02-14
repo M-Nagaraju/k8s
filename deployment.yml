@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      imagePullSecrets:
+      - name: nexus-docker
+      containers:
+      - name: myapp
+        image: pavanikonda/k8s:latest
+        command:
+          - "sh"
+          - "-c"
+          - "java -jar /example.smallest-0.0.1-SNAPSHOT.war"
+        ports:
+        - containerPort: 8080
